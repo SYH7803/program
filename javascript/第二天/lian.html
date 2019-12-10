@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		
+		var a=5;
+		var fn=(function(){
+			a++
+			return{
+				name:"王大伟",
+				add:function(){
+					return a++;
+				}
+			}
+		})
+
+		console.log(fn)
+		console.log(fn())
+		console.log(fn().add)
+		console.log(fn().add())
+		console.log(a)
+
+		//fn函数本身
+		//11到15行的对象整体
+		//13到14行的函数本身
+		//8                                    6，7
+		//9
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
