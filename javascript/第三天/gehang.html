@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>隔行变色</title>
+	<style type="text/css">
+		.table th,.table td{
+			border-top: 1px solid #000;
+			border-right: 1px solid #000;
+			width: 200px;
+			height: 30px;
+			text-align: center;
+		}
+		.table{
+			border-left: 1px solid #000;
+			border-bottom: 1px solid #000;
+			margin: 10px auto;
+		}
+		.se{
+			background-color: #0f0;
+		}
+		.se1{
+			background-color: #f00;
+		}
+	</style>
+</head>
+<body>
+	<table class="table" cellspacing="0">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>年龄</th>
+				<th>身高</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>A001</td>
+				<td>王大伟</td>
+				<td>男</td>
+				<td>27</td>
+				<td>187</td>
+			</tr>
+			<tr>
+				<td>A002</td>
+				<td>梁帆</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A003</td>
+				<td>史园浩</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A004</td>
+				<td>黄正文</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A005</td>
+				<td>张帅</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A006</td>
+				<td>郝卓</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A001</td>
+				<td>王大伟</td>
+				<td>男</td>
+				<td>27</td>
+				<td>187</td>
+			</tr>
+			<tr>
+				<td>A002</td>
+				<td>梁帆</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A003</td>
+				<td>史园浩</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A004</td>
+				<td>黄正文</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A005</td>
+				<td>张帅</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+			<tr>
+				<td>A006</td>
+				<td>郝卓</td>
+				<td>男</td>
+				<td>22</td>
+				<td>178</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script type="text/javascript">
+		var a=document.getElementsByTagName("tr")
+		for(var i=0;i<a.length;i++){
+			if(i%2==0){
+				a[i].className="se";
+			}
+			else{
+				a[i].className="se1";
+			}
+		}
+	</script>
+</body>
+</html>

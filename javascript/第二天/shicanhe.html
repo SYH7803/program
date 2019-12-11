@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		
+		// 设计一个函数add
+		// 该函数可以接受无限多个参数
+		// 该函数会返回所有实参累加之和
+		// 该函数将忽略掉所有非number数据类型的实参
+
+		function add(){
+			var result=0;
+			for(var i=0;i<arguments.length;i++){
+				if(typeof arguments[i]==="number"){
+				result=result+arguments[i];
+				}
+				else{
+					console.log("你的第"+(i+1)+"个输入不是Number类型")
+				}
+			}
+			return result;
+		}
+
+		console.log(add(2,2,3,4))
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

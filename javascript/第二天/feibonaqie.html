@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>斐波那契数列</title>
+	<script>
+		
+		function feibonaqie(num){
+			var arr=[1,1];
+
+			for(var i=0;true;i++){
+				var n=arr.length; //当前长度
+				var a=arr[n-1]+arr[n-2];
+					if(a<num){
+					arr.push(a);
+					}
+					else{
+					break;
+					}
+				}
+					return arr;
+		}
+
+		console.log(feibonaqie(100));
+		
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
