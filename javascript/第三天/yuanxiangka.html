@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>top选项卡</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px;}
+		li{
+			list-style: none;
+		}
+		.tab{
+			font-size: 14px;
+			width: 408px;
+			height: 35px;
+			line-height: 35px;
+			margin: 20px auto;
+			position: relative;
+			border-left: 1px solid #ccc;
+		}
+		.tab li{
+			float: left;
+			width: 100px;
+			height: 35px;
+			border-top: 1px solid #ccc;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			text-align: center;
+			background-color: #f7f7f7;
+			cursor: pointer;
+		}
+		.tab div{
+			width: 402px;
+			height: 200px;
+			border-left:1px solid #ccc;
+			border-bottom:1px solid #ccc;
+			border-right:1px solid #ccc;
+			position: absolute;
+			top: 37px;
+			left: 0px;
+			display: none;
+		}
+		.tab-light div{
+			display: block;
+		}
+		.tab .tab-light{
+			background-color: #fff;
+			border-bottom: none;
+		}
+	</style>
+</head>
+<body>
+	<ul class="tab" id="tab">
+		<li class="tab-light">
+			许嵩
+			<div>断桥残雪、千百度、幻听、想象之中</div>
+		</li>
+		<li>
+			周杰伦
+			<div>红尘客栈、牛仔很忙、给我一首歌的时间、听妈妈的话</div>
+		</li>
+		<li>
+			许嵩
+			<div>被风吹过的夏天、江南、一千年以后</div>
+		</li>
+		<li>
+			许嵩
+			<div>十年、K歌之王、浮夸</div>
+		</li>
+	</ul>
+
+	<script>
+		var liList=document.getElementById("tab").getElementsByTagName("li");
+
+			for(var i=0;i<liList.length;i++){
+
+			liList[i].onclick=function(){
+
+				for(var j=0;j<liList.length;j++){
+					liList[j].className=""
+				}
+				this.className="tab-light"
+
+			}
+		}
+
+	</script>
+</body>
+</html>
