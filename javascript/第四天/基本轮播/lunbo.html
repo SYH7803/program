@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>基本轮播</title>
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		li{
+			list-style: none;
+		}
+		.banner a{
+			display: block;
+		}
+		.banner{
+			width: 1000px;
+			height: 409px;
+			margin: 50px auto;
+			position: relative;
+		}
+		.banner>img{
+			position: absolute;
+			top: 45%;
+			opacity: .7;
+			cursor: pointer;
+			transition: all .5;
+		}
+		.banner>img:hover{
+			opacity: 1;
+			transform:scale(1.1);
+		}
+		#l{
+			left: 30px;
+		}
+		#r{
+			right: 30px;
+		}
+		#map li{
+			display: none;
+		}
+		#map .show{
+			display: block;
+		}
+		#spot{
+			position: absolute;
+			bottom: 20px;
+			left: 42.5%;
+		}
+		#spot li{
+			width: 8px;
+			height: 8px;
+			border: 1px solid #fff;
+			border-radius: 50%;
+			float: left;
+			margin-left: 10px;
+		}
+		#spot .showsp{
+			background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<ul id="map">
+			<li class="show"><a href="#"><img src="images/1.jpg"></a></li>
+			<li><a href="#"><img src="images/2.jpg"></a></li>
+			<li><a href="#"><img src="images/3.jpg"></a></li>
+			<li><a href="#"><img src="images/4.jpg"></a></li>
+			<li><a href="#"><img src="images/5.jpg"></a></li>
+			<li><a href="#"><img src="images/6.jpg"></a></li>
+		</ul>
+		<img id="l" src="images/l.png">
+		<img id="r" src="images/r.png">
+		<ul id="spot">
+			<li class="showsp"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var r=document.getElementById("r");
+		var l=document.getElementById("l");
+		var liList=document.getElementById("map").getElementsByTagName("li");
+		var spotList=document.getElementById("spot").getElementsByTagName("li");
+		var n=0;
+
+				function showimg(){
+					//清空图片类名
+					for(var i=0;i<liList.length;i++){
+					liList[i].className="";
+					}
+					//重新赋予图片类名
+					liList[n].className="show";	
+				}
+				function showspot(){
+					for(var i=0;i<spotList.length;i++){
+					spotList[i].className="";
+					}
+					spotList[n].className="showsp";
+				}
+		
+				r.onclick=function(){
+					n++;
+					if(n>=liList.length){
+						n=0;
+					}
+					showimg()
+					showspot()
+				}
+		
+				l.onclick=function(){
+					n--;
+					if(n<0){
+						n=liList.length-1;
+					}
+					showimg()
+					showspot()
+				}
+
+	</script>
+</body>
+</html>
