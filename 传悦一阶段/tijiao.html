@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>需求提交</title>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+<body>
+	<div class="top">
+		<div class="content top-logo">
+			<img src="images/img1.jpg">
+			<ul class="top-left">
+				<li><a href="#">网站首页</a></li>
+				<li><a href="#">传悦资源</a></li>
+				<li><a href="anli-list.html">传悦案例</a></li>
+				<li><a href="#">传悦服务</a></li>
+				<li><a href="fangan-list.html">解决方案</a></li>
+				<li><a class="top-left3" href="tijiao.html">需求提交</a></li>
+			</ul>
+			<div class="top-right">
+				<p class="call">0535-60652189</p>
+				<a class="qq" href="#"></a>
+				<a class="weibo" href="#"></a>
+				<a class="weixin" href="#"></a>
+				<a class="E-mail" href="#"></a>
+			</div>
+		</div>
+	</div>
+	<div class="banner banner5">
+		<div class="banner-bottom">
+			<div class="content">
+				<a href="#">网站首页</a> &gt; <span>需求提交</span>
+			</div>
+		</div>
+	</div>
+	<div class="title">
+		<img src="images/img-title.png">
+		<p>向我们提交您的需求</p>
+	</div>
+	<div class="content content4">
+		<div class="form-top">
+			<div class="form-left">
+				<div class="information">
+					<h3>您的详细信息</h3>
+					<ul class="information-left">
+						<li><input type="text" placeholder="你的姓名"></li>
+						<li><input type="text" placeholder="公司名称"></li>
+						<li><input type="text" placeholder="联系电话"></li>
+					</ul>
+					<ul class="information-right">
+						<li><input type="text" placeholder="公司地址"></li>
+						<li><input type="text" placeholder="电子邮箱"></li>
+						<li><input type="text" placeholder="所在城市"></li>
+					</ul>
+				</div>
+				<div class="site" id="site">
+					<h3>是否已拥有网站</h3>
+					<div class="Y">
+						<p class="YN">
+							是
+							<input type="text" placeholder="http://">
+						</p>
+					</div>
+					<div class="N"><p>否</p></div>
+				</div>
+				<div class="expect" id="expect">
+					<h3>您期待的服务类型</h3>
+					<ul class="expect-left">
+						<li class="yes">搜索引擎营销解决方案</li>
+						<li>社会化媒体营销解决方案</li>
+						<li>整合网络营销全案解决方案</li>
+					</ul>
+					<ul class="expect-right">
+						<li>电子商务整体解决方案</li>
+						<li>精准数字营销解决方案</li>
+						<li>网络平台搭建解决方案</li>
+					</ul>
+				</div>
+			</div>
+			<div class="form-right">
+				<div class="need">
+					<h3>您的详细需求</h3>
+					<textarea></textarea>
+				</div>
+				<div class="budget">
+					<h3>项目计划预算</h3>
+					<p>（单位/元）</p>
+					<img src="images/img-7.png">
+				</div>
+				<div class="time">
+					<h3>项目计划时间</h3>
+					<img src="images/img-8.png">
+				</div>
+			</div>
+		</div>
+		<div class="channel" id="channel">
+			<h3>您了解到传悦的途径</h3>
+			<ul>
+				<li class="bright">百度搜索</li>
+				<li>google搜索</li>
+				<li>新闻博客</li>
+				<li>微博</li>
+				<li>微信</li>
+				<li>社区论坛</li>
+				<li>朋友介绍</li>
+				<li>会议演讲活动贴</li>
+				<li>其他</li>
+			</ul>
+		</div>
+	</div>
+	<div class="submit">
+		<button>提交需求</button>
+	</div>
+	<div class="bottom">
+		<div class="content">
+			<img src="images/img15.png">
+			<div class="bottom-right">
+				<ul>
+					<li><a href="#">付款账户</a></li>
+					<li><a href="#">加入传悦</a></li>
+					<li><a href="#">联系传悦</a></li>
+					<li><a href="#">传悦观点</a></li>
+					<li><a href="#">新闻动态</a></li>
+					<li><a href="#">关于传悦</a></li>
+				</ul>
+				<p>Copyright ©2013  创梦网络科技有限责任公司  ‖  传悦 Chnyoo.cn All Rights Reserved    京ICP备12005221号</p>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		var pList=document.getElementById("site").getElementsByTagName("p")
+		var liList= document.getElementById("expect").getElementsByTagName("li")
+		var chanList=document.getElementById("channel").getElementsByTagName("li")
+
+			for(var i=0;i<pList.length;i++){
+				pList[i].onclick=function(){
+					for(var j=0;j<pList.length;j++){
+						pList[j].className="";
+					}
+					this.className="YN";
+				}
+			}
+
+			for(var i=0;i<chanList.length;i++){
+				chanList[i].onclick=function(){
+					for(var j=0;j<chanList.length;j++){
+						chanList[j].className="";
+					}
+					this.className="bright";
+				}
+			}
+		
+			for(var i=0;i<liList.length;i++){
+				liList[i].onclick=function(){
+					if(this.className==""){
+						this.className="yes";
+					}
+					else{
+						this.className="";
+					}
+				}
+			}
+	</script>
+</body>
+</html>
