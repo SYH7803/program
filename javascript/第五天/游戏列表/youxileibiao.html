@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>游戏列表</title>
+	<style type="text/css">
+		*{padding: 0px;margin: 0px;}
+		li{
+			list-style: none;
+		}
+		.content{
+			width: 1000px;
+			margin: 30px auto;
+			line-height: 30px;
+		}
+		.select{
+			font-size: 14px;
+			font-weight: bold;
+		}
+		.listing{
+			font-size: 12px;
+			padding: 4px 15px;
+			width: 250px;
+			background-color: #f99;
+			color: #fff;
+			position: relative;
+		}
+		.listing img{
+			position: absolute;
+			top: 30%;
+			right:15px;
+		}
+		.game ul{
+			font-size: 12px;
+			width: 258px;
+			border: 1px solid #ccc;
+			overflow: hidden;
+			padding: 10px;
+			display: none;
+		}
+		.game li{
+			float: left;
+			padding-left: 5px;
+			padding-right: 5px;
+			margin: 1px 1px;
+			border: 1px solid #fff;
+			cursor: pointer;
+		}
+		.listing1 img{
+			transform: rotate(180deg);
+		}
+		.game .selected{
+			border: 1px solid #f99;
+		}
+		.game .gameU{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<p class="select">
+			已选择：
+			<span id="selectgame">请至少选择一款游戏</span>
+		</p>
+		<div id="game" class="game">
+			<h2 class="listing">
+				游戏列表
+				<img src="bottom.png">
+			</h2>
+			<ul>
+				<li>魔兽世界</li>
+				<li>王者荣耀</li>
+				<li>英雄联盟</li>
+				<li>QQ飞车</li>
+				<li>绝地求生</li>
+				<li>地下城与勇士</li>
+				<li>贪玩蓝月</li>
+				<li>天涯明月刀</li>
+				<li>逆战</li>
+				<li>穿越火线</li>
+				<li>QQ三国</li>
+				<li>QQ炫舞</li>
+				<li>黑色沙漠</li>
+				<li>上古卷轴</li>
+				<li>剑网3</li>
+				<li>九阴真经2</li>
+				<li>失落的方舟</li>
+				<li>MU</li>
+				<li>CS:GO</li>
+				<li>神武3</li>
+				<li>古剑OL</li>
+				<li>龙之谷</li>
+				<li>影武者</li>
+				<li>坦克世界</li>
+				<li>龙门虎将</li>
+				<li>笑傲江湖</li>
+				<li>灵山奇缘</li>
+			</ul>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var h2=document.getElementById("game").getElementsByTagName("h2")[0];
+		var ul=document.getElementById("game").getElementsByTagName("ul")[0];
+		var liList=ul.getElementsByTagName("li");
+		var selectgame=document.getElementById("selectgame");
+
+		h2.onclick=function(){
+			if(ul.className===""){
+				ul.className="gameU";
+				h2.className="listing listing1";
+			}
+			else{
+				ul.className="";
+				h2.className="listing";
+			}
+		}
+
+		for(var i=0;i<liList.length;i++){
+			liList[i].onclick=function(){
+				if(this.className){
+					this.className="";
+				}
+				else{
+					this.className="selected";
+				}
+
+				var arr=[];
+				for(var j=0;j<liList.length;j++){
+					if(liList[j].className==="selected"){
+						arr.push(liList[j].innerHTML);
+					}
+				}
+				if(arr.length){
+					selectgame.innerHTML=String(arr);
+				}
+				else{
+					selectgame.innerHTML="请至少选择一款游戏";
+				}
+			}
+		}
+	</script>
+</body>
+</html>
