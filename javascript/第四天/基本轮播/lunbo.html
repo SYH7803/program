@@ -55,6 +55,9 @@
 			border-radius: 50%;
 			float: left;
 			margin-left: 10px;
+			color: rgba(0,0,0,0);
+			cursor: pointer;
+			overflow: hidden;
 		}
 		#spot .showsp{
 			background-color: #fff;
@@ -74,12 +77,12 @@
 		<img id="l" src="images/l.png">
 		<img id="r" src="images/r.png">
 		<ul id="spot">
-			<li class="showsp"></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
+			<li class="showsp">0</li>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
 		</ul>
 	</div>
 
@@ -90,18 +93,28 @@
 		var spotList=document.getElementById("spot").getElementsByTagName("li");
 		var n=0;
 
+				// function showimg(){
+				// 	//清空图片类名
+				// 	for(var i=0;i<liList.length;i++){
+				// 	liList[i].className="";
+				// 	}
+				// 	//重新赋予图片类名
+				// 	liList[n].className="show";	
+				// }
+				// function showspot(){
+				// 	for(var i=0;i<spotList.length;i++){
+				// 	spotList[i].className="";
+				// 	}
+				// 	spotList[n].className="showsp";
+				// }
 				function showimg(){
-					//清空图片类名
+					//清空图片及圆点类名
 					for(var i=0;i<liList.length;i++){
 					liList[i].className="";
-					}
-					//重新赋予图片类名
-					liList[n].className="show";	
-				}
-				function showspot(){
-					for(var i=0;i<spotList.length;i++){
 					spotList[i].className="";
 					}
+					//重新赋予图片及圆点类名
+					liList[n].className="show";	
 					spotList[n].className="showsp";
 				}
 		
@@ -111,7 +124,7 @@
 						n=0;
 					}
 					showimg()
-					showspot()
+					// showspot()
 				}
 		
 				l.onclick=function(){
@@ -120,9 +133,16 @@
 						n=liList.length-1;
 					}
 					showimg()
-					showspot()
+					// showspot()
 				}
 
+				for(var i=0;i<spotList.length;i++){
+					spotList[i].onclick=function(){
+						n=Number(this.innerHTML);
+						showimg();
+						// showspot();
+					}
+				}
 	</script>
 </body>
 </html>
