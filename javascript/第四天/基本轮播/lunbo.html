@@ -89,25 +89,11 @@
 	<script type="text/javascript">
 		var r=document.getElementById("r");
 		var l=document.getElementById("l");
-		var liList=document.getElementById("map").getElementsByTagName("li");
+		var map=document.getElementById("map");
+		var liList=map.getElementsByTagName("li");
 		var spotList=document.getElementById("spot").getElementsByTagName("li");
 		var n=0;
-
-				// function showimg(){
-				// 	//清空图片类名
-				// 	for(var i=0;i<liList.length;i++){
-				// 	liList[i].className="";
-				// 	}
-				// 	//重新赋予图片类名
-				// 	liList[n].className="show";	
-				// }
-				// function showspot(){
-				// 	for(var i=0;i<spotList.length;i++){
-				// 	spotList[i].className="";
-				// 	}
-				// 	spotList[n].className="showsp";
-				// }
-				function showimg(){
+				function show(){
 					//清空图片及圆点类名
 					for(var i=0;i<liList.length;i++){
 					liList[i].className="";
@@ -117,31 +103,37 @@
 					liList[n].className="show";	
 					spotList[n].className="showsp";
 				}
-		
 				r.onclick=function(){
 					n++;
 					if(n>=liList.length){
 						n=0;
 					}
-					showimg()
-					// showspot()
+					show();
 				}
-		
 				l.onclick=function(){
 					n--;
 					if(n<0){
 						n=liList.length-1;
 					}
-					showimg()
-					// showspot()
+					show();
 				}
-
 				for(var i=0;i<spotList.length;i++){
 					spotList[i].onclick=function(){
 						n=Number(this.innerHTML);
-						showimg();
-						// showspot();
+						show();
 					}
+				}
+
+				var t=setInterval(function(){
+					r.click();
+				},3000)
+				map.onmouseenter=function(){
+					clearInterval(t);
+				}
+				map.onmouseleave=function(){
+					t=setInterval(function(){
+						r.click();
+					},3000)
 				}
 	</script>
 </body>
