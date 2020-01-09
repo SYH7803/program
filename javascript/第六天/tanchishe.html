@@ -100,7 +100,7 @@
 					x:parseInt(HEAD.style.left),
 					y:parseInt(HEAD.style.top)
 				}                                    //新头坐标
-				if(point.x<0 || point.y<0 || point.x==parseInt(w) || point.y==parseInt(h)){
+				if(point.x<0 || point.y<0 || point.x>=parseInt(w) || point.y>=parseInt(h)){
 					game.dead()
 				}                                    //检测
 				//得分碰撞检测
@@ -144,7 +144,7 @@
 			},
 			//游戏开始
 			start:function(){
-				alert("是否开始贪吃蛇游戏");
+				alert("是否开始这个low炫的贪吃蛇游戏");
 				game.initsnake();
 				game.initfood();
 				t=setInterval(function(){
