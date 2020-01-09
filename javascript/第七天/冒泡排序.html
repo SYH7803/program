@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冒泡排序</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var a=[1,6,3,2,5,4]
+		function sort(arr){
+			for(var n=1;n<arr.length;n++){
+				console.log("第"+n+"轮循环：")
+				for(var m=0;m<arr.length-n;m++){
+					if(arr[m]>arr[m+1]){
+						var t=arr[m];
+						arr[m]=arr[m+1];
+						arr[m+1]=t;
+					}
+					console.log(arr)
+				}
+			}
+			console.log("最终排列：")
+			return(arr);
+		}
+		console.log(sort(a));
+	</script>
+</body>
+</html>

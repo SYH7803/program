@@ -17,14 +17,14 @@
 			width: 10px;
 			height: 10px;
 			border-radius: 50%;
-			background-color: #000;
+			/*background-color: #000;*/
 			position: absolute;
 		}
 		#food{
 			width: 10px;
 			height: 10px;
 			border-radius: 50%;
-			background-color: #f99;
+			background-color: #000;
 			position: absolute;
 		}
 		#score{
@@ -43,11 +43,29 @@
 	</div>
 
 	<script type="text/javascript">
+		//获取随机色
+		function randomcolor(){
+			var arr=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
+			var color="#"
+			for(var i=0;i<6;i++){
+				var n=Math.round(Math.random()*15);
+				color=color+arr[n];
+			}
+			return color;
+		}
+
 		var snake={
 			body:[],
 			width:10,
 			length:5,
 			dir:"right",
+			//长身体
+			grow:function(){
+				var span=document.createElement("span");
+				span.style.left=snake.body[0].style.left;
+				game.el.appendChild(span);
+				snake.body.unshift(span);
+			},
 			//移动蛇
 			move:function(){
 				var foot=snake.body[0];
@@ -82,13 +100,17 @@
 					x:parseInt(HEAD.style.left),
 					y:parseInt(HEAD.style.top)
 				}                                    //新头坐标
-				if(point.x<0 || point.y<0 || point.x>=parseInt(w) || point.y>=parseInt(h)){
+				if(point.x<0 || point.y<0 || point.x==parseInt(w) || point.y==parseInt(h)){
 					game.dead()
 				}                                    //检测
 				//得分碰撞检测
 				if(point.x===foodpoint.x && point.y===foodpoint.y){
 					game.initfood();
 					game.scoreUp();
+					snake.grow();
+					for(var i=0;i<snake.length;i++){
+						snake.body[i].style.backgroundColor=randomcolor();
+					}
 				}
 			}
 		}
@@ -105,6 +127,7 @@
 					var span=document.createElement("span");
 					span.style.top="0px";
 					span.style.left=snake.width*i+"px";
+					span.style.backgroundColor=randomcolor();
 					game.el.appendChild(span);
 					snake.body.push(span);
 				}
@@ -121,7 +144,7 @@
 			},
 			//游戏开始
 			start:function(){
-				alert("是否开始游戏");
+				alert("是否开始贪吃蛇游戏");
 				game.initsnake();
 				game.initfood();
 				t=setInterval(function(){
@@ -130,8 +153,8 @@
 			},
 			//游戏结束
 			dead:function(){
-				alert("游戏结束")
-				clearInterval(t)
+				alert("游戏结束");
+				clearInterval(t);
 				//结束后矫正下蛇的姿势
 				if(snake.dir==="right"){
 					HEAD.style.top=FOOT.style.top;
