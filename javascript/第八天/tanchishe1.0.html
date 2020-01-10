@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>贪吃蛇</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px}
+		#game{
+			/*width: 1000px;*/
+			/*height: 600px;*/
+			border: 1px solid #ccc;
+			margin: 10px auto 0px auto;
+			background-color: #eee;
+			position: relative;
+		}
+		#game span{
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			/*background-color: #000;*/
+			position: absolute;
+		}
+		#food{
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: #000;
+			position: absolute;
+		}
+		#score{
+			color:#f00;
+			font-family: "Arial";
+			font-size: 50px;
+			width: 30px;
+			margin: 10px auto 0 auto;
+		}
+		#control{
+			text-align: center;
+			padding: 20px;
+			width: 200px;
+			background-color: #ddd;
+			position: fixed;
+			top: 83px;
+			left: 50px;
+		}
+		#top li{
+			width: 10%;
+			height: 3px;
+			float: left;
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<ul style="overflow: hidden;" id="top"></ul>
+	<h2 id="score">0</h2>
+	<div id="control">
+		难度：
+		<select id="model">
+			<option value="70">简单</option>
+			<option value="55">普通</option>
+			<option value="40">困难</option>
+			<option value="30">大师</option>
+			<option value="20">炼狱</option>
+		</select>	
+		<button id="start">开始游戏</button>
+	</div>
+	<div id="game">
+		<div id="food"></div>
+	</div>
+
+	<script type="text/javascript">
+		//获取随机色
+		function randomcolor(){
+			var arr=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
+			var color="#"
+			for(var i=0;i<6;i++){
+				var n=Math.floor(Math.random()*16);
+				while(n === 16){
+					n = Math.floor(Math.random()*16);
+				}
+				color=color+arr[n];
+			}
+			return color;
+		}
+		//生成十个li插入顶部
+		var tp=document.getElementById("top");
+		for(var i=0;i<10;i++){
+			var li=document.createElement("li");
+			tp.appendChild(li);
+		}
+		//顶部闪光效果
+		setInterval(function(){
+			var liList=tp.getElementsByTagName("li");
+			for(var i=0;i<liList.length;i++){
+				liList[i].style.backgroundColor=randomcolor();
+			}
+		},100)
+
+		var snake={
+			body:[],
+			width:10,
+			length:5,
+			dir:"right",
+			//长身体
+			grow:function(){
+				var span=document.createElement("span");
+				span.style.left=snake.body[0].style.left;
+				game.el.appendChild(span);
+				snake.body.unshift(span);
+			},
+			//移动蛇
+			move:function(){
+				var foot=snake.body[0];
+				var head=snake.body[snake.body.length-1];
+				if(snake.dir==="right"){
+					//把蛇尾放到原来的蛇头右边
+					foot.style.top=head.style.top;
+					foot.style.left=parseInt(head.style.left)+snake.width+"px";
+				}
+				if(snake.dir==="bottom"){
+					//把蛇尾放到原来的蛇头下边
+					foot.style.top=parseInt(head.style.top)+snake.width+"px";
+					foot.style.left=head.style.left;
+				}
+				if(snake.dir==="left"){
+					//把蛇尾放到原来的蛇头左边
+					foot.style.top=head.style.top;
+					foot.style.left=parseInt(head.style.left)-snake.width+"px";
+				}
+				if(snake.dir==="top"){
+					//把蛇尾放到原来的蛇头上边
+					foot.style.top=parseInt(head.style.top)-snake.width+"px";
+					foot.style.left=head.style.left;
+				}
+				//矫正蛇身数组与视图的关系
+				snake.body[snake.body.length]=snake.body[0];
+				snake.body.shift();
+				//死亡检测
+				HEAD=snake.body[snake.body.length-1];//矫正后新头
+				FOOT=snake.body[0];                  //新尾
+				var point={
+					x:parseInt(HEAD.style.left),
+					y:parseInt(HEAD.style.top)
+				}                                    //新头坐标
+				if(point.x<0 || point.y<0 || point.x>=parseInt(w) || point.y>=parseInt(h)){
+					game.dead()
+				}                                    //检测
+				//得分碰撞检测
+				if(point.x===foodpoint.x && point.y===foodpoint.y){
+					game.initfood();
+					game.scoreUp();
+					snake.grow();
+					for(var i=0;i<snake.length;i++){
+						snake.body[i].style.backgroundColor=randomcolor();
+					}
+				}
+			}
+		}
+
+		var game={
+			el:document.getElementById("game"),
+			startbutton:document.getElementById("start"),
+			modelselect:document.getElementById("model"),
+			//初始化一条蛇
+			initsnake:function(){
+				//初始化蛇长
+				for(var i=0;i<snake.body.length;i++){
+					game.el.removeChild(snake.body[i]);
+				}
+				snake.body=[];
+				//初始化方向
+				snake.dir="right";
+				//初始化分数
+				var node=document.getElementById("score");
+				node.innerHTML=0;
+
+				var hbody=document.documentElement.clientHeight;//获取浏览器可见区域高度
+				var wbody=document.documentElement.clientWidth;//获取浏览器可见区域宽度
+				w=game.el.style.width=wbody*0.52/10*10+"px";
+				h=game.el.style.height=hbody*0.8/10*10+"px";
+				for(var i=0;i<snake.length;i++){
+					var span=document.createElement("span");
+					span.style.top="0px";
+					span.style.left=snake.width*i+"px";
+					span.style.backgroundColor=randomcolor();
+					game.el.appendChild(span);
+					snake.body.push(span);
+				}
+			},
+			//初始化食物
+			initfood:function(){
+				foodpoint={
+					x:Math.floor(Math.random()*(parseInt(w)/10))*10,
+					y:Math.floor(Math.random()*(parseInt(h)/10))*10
+				}
+				var el=document.getElementById("food");
+				el.style.left=foodpoint.x+"px";
+				el.style.top=foodpoint.y+"px";
+			},
+			//游戏开始
+			start:function(){
+				game.initsnake();
+				game.initfood();
+				t=setInterval(function(){
+					snake.move();
+				},Number(game.modelselect.value));
+			},
+			//游戏结束
+			dead:function(){
+				alert("游戏结束");
+				clearInterval(t);
+				game.startbutton.disabled=false;
+				//结束后矫正下蛇的姿势
+				if(snake.dir==="right"){
+					HEAD.style.top=FOOT.style.top;
+					HEAD.style.left=parseInt(FOOT.style.left)-snake.width+"px";
+				}
+				if(snake.dir==="bottom"){
+					HEAD.style.top=parseInt(FOOT.style.top)-snake.width+"px";
+					HEAD.style.left=FOOT.style.left;
+				}
+				if(snake.dir==="left"){
+					HEAD.style.top=FOOT.style.top;
+					HEAD.style.left=parseInt(FOOT.style.left)+snake.width+"px";
+				}
+				if(snake.dir==="top"){
+					HEAD.style.top=parseInt(FOOT.style.top)+snake.width+"px";
+					HEAD.style.left=FOOT.style.left;
+				}
+			},
+			//显示游戏得分
+			scoreUp:function(){
+				var node=document.getElementById("score");
+				node.innerHTML=Number(node.innerHTML)+10;
+			}
+		}
+
+		game.startbutton.onclick=function(){
+			game.start();
+			this.disabled=true;
+		}
+		//键盘控制蛇移动
+		window.onkeydown=function(e){
+			if(e.keyCode===32 && game.startbutton.disabled===false){
+				game.startbutton.click();
+			}
+			if(e.keyCode===38 && snake.dir!=="bottom"){
+				snake.dir="top";
+			}
+			if(e.keyCode===40 && snake.dir!=="top"){
+				snake.dir="bottom";
+			}
+			if(e.keyCode===37 && snake.dir!=="right"){
+				snake.dir="left";
+			}
+			if(e.keyCode===39 && snake.dir!=="left"){
+				snake.dir="right";
+			}
+		}
+	</script>
+</body>
+</html>
