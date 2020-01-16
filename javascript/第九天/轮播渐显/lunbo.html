@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>基本轮播</title>
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		li{
+			list-style: none;
+		}
+		.banner a{
+			display: block;
+		}
+		.banner{
+			width: 1000px;
+			height: 409px;
+			margin: 50px auto;
+			position: relative;
+		}
+		.banner>img{
+			position: absolute;
+			top: 45%;
+			opacity: .7;
+			cursor: pointer;
+			transition: all .5;
+		}
+		.banner>img:hover{
+			opacity: 1;
+			transform:scale(1.1);
+		}
+		#l{
+			left: 30px;
+		}
+		#r{
+			right: 30px;
+		}
+		#map li{
+			display: none;
+		}
+		#map .show{
+			display: block;
+		}
+		#spot{
+			position: absolute;
+			bottom: 20px;
+			left: 42.5%;
+		}
+		#spot li{
+			width: 8px;
+			height: 8px;
+			border: 1px solid #fff;
+			border-radius: 50%;
+			float: left;
+			margin-left: 10px;
+			color: rgba(0,0,0,0);
+			cursor: pointer;
+			overflow: hidden;
+		}
+		#spot .showsp{
+			background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<ul id="map">
+			<li class="show"><a href="#"><img src="images/1.jpg"></a></li>
+			<li><a href="#"><img src="images/2.jpg"></a></li>
+			<li><a href="#"><img src="images/3.jpg"></a></li>
+			<li><a href="#"><img src="images/4.jpg"></a></li>
+			<li><a href="#"><img src="images/5.jpg"></a></li>
+			<li><a href="#"><img src="images/6.jpg"></a></li>
+		</ul>
+		<img id="l" src="images/l.png">
+		<img id="r" src="images/r.png">
+		<ul id="spot">
+			<li class="showsp">0</li>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var r=document.getElementById("r");
+		var l=document.getElementById("l");
+		var map=document.getElementById("map");
+		var liList=map.getElementsByTagName("li");
+		var spot=document.getElementById("spot");
+		var spotList=spot.getElementsByTagName("li");
+		var n=0;
+				function show(){
+					//清空图片及圆点类名
+					for(var i=0;i<liList.length;i++){
+						liList[i].className="";
+						liList[i].style.opacity=0;
+						spotList[i].className="";
+					}
+					//重新赋予图片及圆点类名
+					liList[n].className="show";
+					var t=setInterval(function(){
+						var o=Number(liList[n].style.opacity);
+						if(o>=1){
+							clearInterval(t);
+							return;
+						}
+						liList[n].style.opacity=o+0.03;
+					},16)
+					spotList[n].className="showsp";
+				}
+				r.onclick=function(){
+					n++;
+					if(n>=liList.length){
+						n=0;
+					}
+					show();
+				}
+				l.onclick=function(){
+					n--;
+					if(n<0){
+						n=liList.length-1;
+					}
+					show();
+				}
+				for(var i=0;i<spotList.length;i++){
+					spotList[i].onclick=function(){
+						n=Number(this.innerHTML);
+						show();
+					}
+				}
+
+				var t=setInterval(function(){
+					r.click();
+				},3000)
+				map.onmouseenter=function(){
+					clearInterval(t);
+				}
+				r.onmouseenter=function(){
+					clearInterval(t);
+				}
+				l.onmouseenter=function(){
+					clearInterval(t);
+				}
+				spot.onmouseenter=function(){
+					clearInterval(t);
+				}
+				map.onmouseleave=function(){
+					t=setInterval(function(){
+						r.click();
+					},3000)
+				}
+	</script>
+</body>
+</html>

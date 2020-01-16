@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>基本轮播</title>
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		li{
+			list-style: none;
+		}
+		.banner a{
+			display: block;
+		}
+		.banner{
+			width: 1000px;
+			height: 409px;
+			margin: 50px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		.banner>img{
+			position: absolute;
+			top: 45%;
+			opacity: .7;
+			cursor: pointer;
+			transition: all .5;
+		}
+		.banner>img:hover{
+			opacity: 1;
+			transform:scale(1.1);
+		}
+		#l{
+			left: 30px;
+		}
+		#r{
+			right: 30px;
+		}
+		#map li{
+			float: left;
+		}
+		#spot{
+			position: absolute;
+			bottom: 20px;
+			left: 42.5%;
+		}
+		#spot li{
+			width: 8px;
+			height: 8px;
+			border: 1px solid #fff;
+			border-radius: 50%;
+			float: left;
+			margin-left: 10px;
+			color: rgba(0,0,0,0);
+			cursor: pointer;
+			overflow: hidden;
+		}
+		#spot .showsp{
+			background-color: #fff;
+		}
+		#map{
+			width: 99999999px;
+			height: 409px;
+		}
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<ul id="map" style="margin-left: 0px;">
+			<li><a href="#"><img src="images/1.jpg"></a></li>
+			<li><a href="#"><img src="images/2.jpg"></a></li>
+			<li><a href="#"><img src="images/3.jpg"></a></li>
+			<li><a href="#"><img src="images/4.jpg"></a></li>
+			<li><a href="#"><img src="images/5.jpg"></a></li>
+			<li><a href="#"><img src="images/6.jpg"></a></li>
+		</ul>
+		<img id="l" src="images/l.png">
+		<img id="r" src="images/r.png">
+		<ul id="spot">
+			<li class="showsp">0</li>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+
+<script type="text/javascript">
+	var banner=document.querySelectorAll(".banner")[0];
+	var r=document.getElementById("r");
+	var l=document.getElementById("l");
+	var map=document.getElementById("map");
+	var liList=map.getElementsByTagName("li");
+	var spotList=document.getElementById("spot").getElementsByTagName("li");
+	var isAnimation=true;//是否执行点击
+	var width=1000;//图片宽度
+	var n=0;//当前张数
+		function spotfollow(){
+			for(var i=0;i<spotList.length;i++){
+				spotList[i].className="";
+			}
+			spotList[n].className="showsp";
+		}
+		r.onclick=function(){
+			if(isAnimation){
+				n++;
+				if(n===liList.length){
+					n=0;
+					isAnimation=false;
+					var copyNode=liList[0].cloneNode(true);
+					map.appendChild(copyNode);
+					var t=setInterval(function(){
+						var mLeft=parseInt(map.style.marginLeft);
+						if (mLeft===-(liList.length-1)*width) {
+							clearInterval(t);
+							map.style.marginLeft="0px";
+							map.removeChild(copyNode);
+							isAnimation=true;
+							return;
+						}
+						map.style.marginLeft=mLeft-25+"px";
+					},16)
+				}
+				else{
+					isAnimation=false;
+					var t=setInterval(function(){
+						var mLeft=parseInt(map.style.marginLeft);
+						if (mLeft===-width*n) {
+							clearInterval(t);
+							isAnimation=true;
+							return;
+						}
+						map.style.marginLeft=mLeft-25+"px";
+					},16)
+				}
+				spotfollow();
+			}
+		}
+		l.onclick=function(){
+			if(isAnimation){
+				n--;
+				if(n===-1){
+					n=liList.length-1;
+					isAnimation=false;
+					var copyNode=liList[liList.length-1].cloneNode(true);
+					map.insertBefore(copyNode,liList[0]);
+					map.style.marginLeft=-1000+"px";
+					var t=setInterval(function(){
+						var mLeft=parseInt(map.style.marginLeft);
+						if (mLeft===0) {
+							clearInterval(t);
+							map.style.marginLeft=-(liList.length-2)*width+"px";
+							map.removeChild(copyNode);
+							isAnimation=true;
+							return;
+						}
+						map.style.marginLeft=mLeft+25+"px";
+					},16)
+				}
+				else{
+					isAnimation=false;
+					var t=setInterval(function(){
+						var mLeft=parseInt(map.style.marginLeft);
+						if (mLeft===-width*n) {
+							clearInterval(t);
+							isAnimation=true;
+							return;
+						}
+						map.style.marginLeft=mLeft+25+"px";
+					},16)
+				}
+				spotfollow();
+			}
+		}
+		// for(var j=0;j<spotList.length;j++){
+		// 	spotList[j].onclick=function(){
+		// 		a=Number(this.innerHTML);
+		// 		isAnimation=false;
+		// 		var t=setInterval(function(){
+		// 			var mLeft=parseInt(map.style.marginLeft);
+		// 			if (mLeft === -width*a) {
+		// 				clearInterval(t);
+		// 				isAnimation=true;
+		// 				return;
+		// 			}
+		// 			console.log(n)
+		// 			map.style.marginLeft=mLeft-25*(a-n)+"px";
+		// 		},16) 
+		// 		n=a;             //有个时序问题
+		// 		spotfollow();
+		// 	}
+		// }
+		for(var j=0;j<spotList.length;j++){
+			spotList[j].onclick=function(){
+				a=n;
+				n=Number(this.innerHTML);
+				isAnimation=false;
+				var t=setInterval(function(){
+					var mLeft=parseInt(map.style.marginLeft);
+					if (mLeft===-width*n) {
+						clearInterval(t);
+						isAnimation=true;
+						return;
+					}
+					map.style.marginLeft=mLeft-25*(n-a)+"px";
+				},16)
+				spotfollow();
+			}
+		}
+		var t0=setInterval(function(){
+			r.click();
+		},3000)
+		banner.onmouseenter=function(){
+			clearInterval(t0);
+		}
+		banner.onmouseleave=function(){
+			t0=setInterval(function(){
+				r.click();
+			},3000)
+		}
+</script>
+</body>
+</html>

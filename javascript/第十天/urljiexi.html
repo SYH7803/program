@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>url解析</title>
+</head>
+<body>
+<script type="text/javascript">
+	function getQueryString(url){
+		c={};
+		var a=url.split("?");
+		var b=a[1].split("&");
+		for(var i=0;i<b.length;i++){
+			c[b[i].split("=")[0]]=b[i].split("=")[1];
+		}
+		return c;
+	}
+	console.log(getQueryString("https://fanyi.baidu.com/translate?aldtype=16047&query=&keyfrom=baidu&smartresult=dict&lang=en2"))
+</script>
+</body>
+</html>

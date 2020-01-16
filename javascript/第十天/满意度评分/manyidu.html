@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>满意度</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px;}
+		li{list-style: none;}
+		.degree{
+			width: 200px;
+			overflow: hidden;
+			padding: 20px 20px;
+			margin: 50px auto;
+			background-color: #ddd;
+			position: relative;
+		}
+		.degree p{
+			line-height: 16px;
+			font-size: 14px;
+			float: left;
+		}
+		#fraction{
+			color: #f55;
+		}
+		.degree li{
+			width: 20px;
+			height: 16px;
+			float: left;
+			background-image: url(xing.png);
+			background-repeat: no-repeat;
+			color: rgba(0,0,0,0);
+			cursor: pointer;
+		}
+		.degree .show{
+			background-position: 0px -16px;
+		}
+		.degree span{
+			width: 20px;
+			height: 16px;
+			background-image: url(lian.png);
+			position: absolute;
+			/*left: 90px;
+			background-position: 20px;*/
+			top: 3px;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="degree">
+		<span id="look"></span>
+		<p>满意程度：</p>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li> 
+			<li>5</li>
+		</ul>
+		<p id="fraction">0 分</p>
+	</div>
+
+	<script type="text/javascript">
+		var liList=document.querySelectorAll(".degree")[0].getElementsByTagName("li");
+		var fraction=document.getElementById("fraction");
+		var look=document.getElementById("look");
+		var b=-1;//点击到的li
+		//赋予类名
+		function show(){
+			for(var j=0;j<liList.length;j++){
+				if(j<a){
+					liList[j].className="show";
+				}
+				else{
+					liList[j].className="";
+				}
+			}
+		}
+		//清空类名
+		function hide(){
+			for(var i=0;i<liList.length;i++){
+				if(i>=b){
+					liList[i].className="";
+				}
+				else{
+					liList[i].className="show";
+				}
+			}
+		}
+		for(var i=0;i<liList.length;i++){
+			liList[i].onmouseenter=function(){
+				a=Number(this.innerHTML)  //移上的li	
+				show();
+				look.style.display="block";
+				look.style.left=(a-1)*20+90+"px";
+				look.style.backgroundPosition=20*a+"px";
+			}
+			liList[i].onmouseleave=function(){
+				hide();
+				look.style.display="none";
+			}
+			liList[i].onclick=function(){
+				show();
+				b=Number(this.innerHTML);
+				fraction.innerHTML=b+" 分";
+			}
+		}
+	</script>
+</body>
+</html>

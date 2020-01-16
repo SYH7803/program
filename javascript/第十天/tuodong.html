@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>元素拖动</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px;}
+		.div1{
+			width: 150px;
+			height: 150px;
+			background-color: #f99;
+			cursor: move;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="div1"></div>
+
+	<script type="text/javascript">
+		var div=document.querySelectorAll(".div1")[0]
+		var body=document.getElementsByTagName("body")[0]
+		div.onmousedown=function(e){
+			var copy=div.cloneNode(true);
+			copy.style.opacity=0.5;
+			body.appendChild(copy);
+			var x=e.offsetX;
+			var y=e.offsetY;
+			window.onmousemove=function(e){
+				var w=document.documentElement.clientWidth;
+				var h=document.documentElement.clientHeight;
+				if((e.clientX-x)<0){
+					copy.style.left=0+"px";
+				}
+				else{
+					copy.style.left=e.clientX-x+"px";
+				}
+				if((e.clientX-x)>(w-150)){
+					copy.style.left=w-150+"px";
+				}
+				if((e.clientY-y)<0){
+					copy.style.top=0+"px";
+				}
+				else{
+					copy.style.top=e.clientY-y+"px";
+				}
+				if((e.clientY-y)>(h-150)){
+					copy.style.top=h-150+"px";
+				}
+			}
+			copy.onmouseup=function(){
+				body.removeChild(copy);
+				div.style.left=copy.style.left;
+				div.style.top=copy.style.top;
+				window.onmousemove=0;
+				copy.onmouseup=0;
+			}
+			body.onselectstart = function(){
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>
