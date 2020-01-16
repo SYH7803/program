@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试</title>
+</head>
+<body>
+	<button id="but">来点啊</button>
+
+	<script type="text/javascript">
+		var but=document.getElementById("but");
+		but.onclick=function(){
+			var http=new XMLHttpRequest()
+			http.open("GET","http://192.168.0.7/text.txt")
+			http.send()
+			http.onreadystatechange=function(){
+				if(http.readyState==4){
+					console.log(http.responseText)
+				}
+			}
+		}
+		
+	</script>
+</body>
+</html>

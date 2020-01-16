@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>日期</title>
+	<style type="text/css">
+		#date{
+			background-color: #ddd;
+			margin: 10px;
+			text-align: center;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<div id="date"></div>
+
+	<script type="text/javascript">
+		var da=document.getElementById("date");
+		function date(){
+			var a=new Date();
+			var year=a.getFullYear();
+			var month=a.getMonth()+1;
+			var dat=a.getDate();
+			var hour=a.getHours();
+			var minute=a.getMinutes();
+			var second=a.getSeconds();
+			var day=a.getDay();
+			if(month<10){
+				month="0"+month;
+			}
+			if(dat<10){
+				dat="0"+dat;
+			}
+			if(hour<10){
+				hour="0"+hour;
+			}
+			if(minute<10){
+				minute="0"+minute;
+			}
+			if(second<10){
+				second="0"+second;
+			}
+			switch(day){
+				case 1:{
+					day="一";
+					break;
+				}
+				case 2:{
+					day="二";
+					break;
+				}
+				case 3:{
+					day="三";
+					break;
+				}
+				case 4:{
+					day="四";
+					break;
+				}
+				case 5:{
+					day="五";
+					break;
+				}
+				case 6:{
+					day="六";
+					break;
+				}
+				case 0:{
+					day="日";
+					break;
+				}
+			}
+			var t=`您好！现在是： ${year}年${month}月${dat}日 ${hour}:${minute}:${second} 星期${day}`
+			return t;
+		}
+		da.innerHTML=date();
+		setInterval(function(){
+			da.innerHTML=date();
+		},1000);
+	</script>
+</body>
+</html>

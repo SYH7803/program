@@ -21,6 +21,7 @@
 		}
 		#fraction{
 			color: #f55;
+			font-weight: bold;
 		}
 		.degree li{
 			width: 20px;
@@ -28,13 +29,15 @@
 			float: left;
 			background-image: url(xing.png);
 			background-repeat: no-repeat;
-			color: rgba(0,0,0,0);
 			cursor: pointer;
+		}
+		.degree li span{
+			display: none;
 		}
 		.degree .show{
 			background-position: 0px -16px;
 		}
-		.degree span{
+		#look{
 			width: 20px;
 			height: 16px;
 			background-image: url(lian.png);
@@ -51,11 +54,11 @@
 		<span id="look"></span>
 		<p>满意程度：</p>
 		<ul>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li> 
-			<li>5</li>
+			<li><span>1</span></li>
+			<li><span>2</span></li>
+			<li><span>3</span></li>
+			<li><span>4</span></li> 
+			<li><span>5</span></li>
 		</ul>
 		<p id="fraction">0 分</p>
 	</div>
@@ -65,7 +68,7 @@
 		var fraction=document.getElementById("fraction");
 		var look=document.getElementById("look");
 		var b=-1;//点击到的li
-		//赋予类名
+		//赋予类名，变红星
 		function show(){
 			for(var j=0;j<liList.length;j++){
 				if(j<a){
@@ -76,7 +79,7 @@
 				}
 			}
 		}
-		//清空类名
+		//清空类名，变白星
 		function hide(){
 			for(var i=0;i<liList.length;i++){
 				if(i>=b){
@@ -89,7 +92,7 @@
 		}
 		for(var i=0;i<liList.length;i++){
 			liList[i].onmouseenter=function(){
-				a=Number(this.innerHTML)  //移上的li	
+				a=Number(this.getElementsByTagName("span")[0].innerHTML)  //移上的li	
 				show();
 				look.style.display="block";
 				look.style.left=(a-1)*20+90+"px";
@@ -101,7 +104,7 @@
 			}
 			liList[i].onclick=function(){
 				show();
-				b=Number(this.innerHTML);
+				b=Number(this.getElementsByTagName("span")[0].innerHTML);
 				fraction.innerHTML=b+" 分";
 			}
 		}
